@@ -1,2 +1,2 @@
 # challenge-tech-planets-api
-Rest API com Srping WebFlux
+Rest API witch Srping WebFlux
