@@ -1,0 +1,2 @@
+CREATE KEYSPACE planets WITH REPLICATION = { 'class' :'SimpleStrategy',   'replication_factor' : 1 };
+CREATE TABLE planets.planet ( id uuid, name text, climate text, ground text, amountAppearedMovies int, PRIMARY KEY (id));
