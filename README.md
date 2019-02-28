@@ -1,5 +1,5 @@
 # challenge-tech-planets-api
-Rest API witch Spring WebFlux
+Rest API with Spring WebFlux, Functional Endpoints, Spring Data Reactive Cassandra
 
 
 References:

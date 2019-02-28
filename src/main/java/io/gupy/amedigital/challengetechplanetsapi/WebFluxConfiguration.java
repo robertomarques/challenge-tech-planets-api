@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import io.gupy.amedigital.challengetechplanetsapi.model.Planet;
 import io.gupy.amedigital.challengetechplanetsapi.repository.PlanetsRepository;
+import io.gupy.amedigital.challengetechplanetsapi.service.SwapiCOServiceClient;
 
 @Configuration
 @EnableWebFlux
@@ -21,6 +22,9 @@ public class WebFluxConfiguration {
 
 	@Autowired
 	private PlanetsRepository planetsRepository;
+	
+	@Autowired
+	private  SwapiCOServiceClient client;
 	
 	@Bean
 	public RouterFunction<ServerResponse> routerFunctionGetAllPlanet() {
@@ -47,8 +51,10 @@ public class WebFluxConfiguration {
 	public RouterFunction<ServerResponse> routerFunctionCreatePlanet() {
 		return RouterFunctions.route()
 				.POST("/planets",
-						req -> req.bodyToMono(Planet.class).doOnNext(planet -> planet.setId(UUID.randomUUID()))
-								.doOnNext(planet -> planetsRepository.insert(planet).subscribe())
+						req -> req.bodyToMono(Planet.class).doOnNext(planet -> { planet.setId(UUID.randomUUID());
+							planet.setAmountAppearedMovies(client.getAmountAppearedMoviesByNamePlanet(planet.getName()));
+						})								
+								.doOnSuccess(planet -> planetsRepository.insert(planet).subscribe())
 								.then(ServerResponse.created(null).build()))
 				.build();
 	}
