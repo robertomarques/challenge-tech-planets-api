@@ -2,6 +2,7 @@ package io.gupy.amedigital.challengetechplanetsapi;
 
 import java.util.UUID;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,6 +31,13 @@ public class WebFluxConfiguration {
 	public RouterFunction<ServerResponse> routerFunctionGetAllPlanet() {
 		return RouterFunctions.route()
 				.GET("/planets", req -> ServerResponse.ok().body(planetsRepository.findAll(), Planet.class))
+				.build();
+	}
+	
+	@Bean
+	public RouterFunction<ServerResponse> routerFunctionGetAllPlanetStarWars() {
+		return RouterFunctions.route()
+				.GET("/planets/starwars", req -> ServerResponse.ok().syncBody(client.findAll()))
 				.build();
 	}
 	

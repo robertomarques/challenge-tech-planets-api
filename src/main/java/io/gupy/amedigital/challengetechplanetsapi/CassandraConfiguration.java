@@ -27,9 +27,6 @@ public class CassandraConfiguration extends AbstractReactiveCassandraConfigurati
 			return keyspace;
 		}
 
-	/*
-	 * @Override protected String getContactPoints() { return contactPoints; }
-	 */
 		@Override
 		protected int getPort() {
 			return port;
